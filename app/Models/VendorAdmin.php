@@ -8,8 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class VendorAdmin extends Authenticatable
+class VendorAdmin extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 

@@ -236,7 +236,12 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="text" name="phone" class="form-control mb-1" placeholder="Phone Number">
+                    <input type="text" name="phone" class="form-control mb-1" placeholder="Phone Number"  pattern="^\d{10,13}$"
+                                title="Please enter a valid phone number between 10 and 13 digits"
+                                    maxlength="13"
+                                    required
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 13);"
+                                >
                     <div class="error text-danger mb-2" data-error-for="phone"></div>
                 </div>
 
@@ -384,12 +389,19 @@
         })
         .then(res => res.json())
         .then(data => {
-            if (data.success) {
-                step++;
-                updateForm();
-            } else {
-                Swal.fire("Error", data.message || "Validation failed", "error");
-            }
+              if (data.success) {
+        Swal.fire({
+            title: "Success!",
+            text: data.message,
+            icon: "success",
+            timer: 2000, 
+            showConfirmButton: false
+        });
+
+        setTimeout(() => {
+            window.location.href = data.redirect;
+        }, 2000);
+    }
         })
         .catch(err => {
             console.error(err);
